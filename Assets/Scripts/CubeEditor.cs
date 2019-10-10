@@ -10,7 +10,6 @@ public class CubeEditor : MonoBehaviour
 {
 
 
-  Vector3 gridPos;
   Waypoint waypoint;
 
   private void Awake()
@@ -37,9 +36,9 @@ public class CubeEditor : MonoBehaviour
 
     string labelText =
 
-    waypoint.GetGridPos().x / gridSize
+    waypoint.GetGridPos().x
     + ","
-    + waypoint.GetGridPos().y / gridSize;
+    + waypoint.GetGridPos().y;
 
     textMesh.text = labelText;
 
@@ -53,7 +52,7 @@ public class CubeEditor : MonoBehaviour
 
     // The reason we use the .y in the z position is b/c the Vector2Int we got this GetGridPos() from uses (x,y)
     // x is the x and y is the z coordinate
-    transform.position = new Vector3(waypoint.GetGridPos().x, 0f, waypoint.GetGridPos().y);
+    transform.position = new Vector3(waypoint.GetGridPos().x * gridSize, 0f, waypoint.GetGridPos().y * gridSize);
 
   }
 
