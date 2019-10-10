@@ -12,7 +12,14 @@ public class Pathfinder : MonoBehaviour
 
   Queue<Waypoint> queue = new Queue<Waypoint>();
 
+  // the shortest path we found (will be descending order until we reverse it so our Enemy can travel on this path)
+  [SerializeField]
+  List<Waypoint> path = new List<Waypoint>();
+
+
   bool isRunning = true;
+
+  Waypoint searchCenter; // the current waypoint we are searching from
 
   // specifies which direction we can move
   Vector2Int[] directions = {
@@ -24,45 +31,56 @@ public class Pathfinder : MonoBehaviour
 
   [SerializeField] Waypoint startWaypoint, endWaypoint;
 
-  // Start is called before the first frame update
-  void Start()
+
+  private void CreatePath()
   {
-    LoadBlocks();
-    ColorStartAndEnd();
-    Pathfind();
+    // first add the destination
+    path.Add(endWaypoint);
 
-    // ExploreNeighbors();
+    // now set where the destination was explored from
+    Waypoint previous = endWaypoint.exploredFrom;
 
+    while (previous != startWaypoint)
+    {
+      // add intermediate waypoints
+      path.Add(previous);
+
+      // set previous to the waypoint before the original previous
+      // So before, previous was the waypoint stored on the endWaypoint. Now, it is the waypoint stored on the waypoint that was stored on the endWaypoint.
+      // when the while loop executes again, previous will be re-assigned the waypoint before until we get to the startWaypoint
+      previous = previous.exploredFrom;
+    }
+    // Add the waypoint you started from
+    path.Add(startWaypoint);
+
+    // reverse the list to get the correct path the enemy needs to travel
+    path.Reverse();
   }
 
-  private void Pathfind()
+  private void BreadthFirstSearch()
   {
     // add the start to the queue
     queue.Enqueue(startWaypoint);
 
-    // while there is something in the queue
+    // while there is something in the queue and it is running
     while (queue.Count > 0 && isRunning)
     {
       // where you will search from (the first time it will be the startWaypoint since that's the only thing you added above with Enqueue())
       // Dequeue() will also remove the item it is on from the queue and starts from the next available item, otherwise we'd be searching from the same point forever. It is used to retrieve the top most element in a queue collection
-      Waypoint searchCenter = queue.Dequeue();
+      searchCenter = queue.Dequeue();
 
-      print("Searching from " + searchCenter);
+      HaltIfEndFound();
 
-      HaltIfEndFound(searchCenter);
-
-      ExploreNeighbors(searchCenter);
+      ExploreNeighbors();
 
       // marked that you've explored this waypoint's neighbors already
       searchCenter.isExplored = true;
 
     }
 
-    print("Finished pathfinding?");
-
   }
 
-  private void HaltIfEndFound(Waypoint searchCenter)
+  private void HaltIfEndFound()
   {
     if (searchCenter == endWaypoint)
     {
@@ -71,23 +89,22 @@ public class Pathfinder : MonoBehaviour
     }
   }
 
-  private void ExploreNeighbors(Waypoint searchFrom)
+  private void ExploreNeighbors()
   {
 
     if (!isRunning) { return; }
 
     foreach (Vector2Int direction in directions)
     {
-      Vector2Int neighborCoordinates = searchFrom.GetGridPos() + direction;
+      Vector2Int neighborCoordinates = searchCenter.GetGridPos() + direction;
 
-      try
+      // if the dictionary has the neighbor coordinated, add it to the queue. This is to prevent queueing coordinated that do not exist (like empty spaces between blocks)
+      if (grid.ContainsKey(neighborCoordinates))
       {
         QueueNewNeighbors(neighborCoordinates);
-      }
-      catch
-      {
 
       }
+
 
     }
   }
@@ -98,21 +115,21 @@ public class Pathfinder : MonoBehaviour
     Waypoint neighbor = grid[neighborCoordinates];
 
 
-    // if the neighboring waypoint has been explored, do nothing (do not add it to the queue)
+    // if the neighboring waypoint has been explored or this neighbor was already explored (prevent duplicate queuing of waypoints), do nothing (do not add it to the queue)
     // else, add it to the queue so we can search from there at some point
-    if (neighbor.isExplored)
+    if (neighbor.isExplored || queue.Contains(neighbor))
     {
       // do nothing
     }
     else
     {
-      // find the waypoint by it's coordinate and color it
-      neighbor.SetTopColor(Color.blue);
 
       // add this neighbor waypoint to the queue so we keep searching until we find the end (once the queue has nothing in it, it stops searching the path)
       queue.Enqueue(neighbor);
 
-      print("Queueing " + neighbor);
+      // when we add the neighbor waypoint to the queue that neighbor waypoint needs to know where it was found from. It was found from the waypoint we were searching from at the time, which is stored in searchCenter in this line: searchCenter = queue.Dequeue();
+      neighbor.exploredFrom = searchCenter;
+
     }
 
   }
@@ -146,10 +163,16 @@ public class Pathfinder : MonoBehaviour
 
   }
 
-
-  // Update is called once per frame
-  void Update()
+  public List<Waypoint> GetPath()
   {
+    LoadBlocks();
+    ColorStartAndEnd();
+    BreadthFirstSearch();
+    CreatePath();
 
+    return path;
   }
+
+
+
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
+  // keeps track of which waypoint this waypoint was found from (making the path from the end to the start, so we know what the path is)
+  public Waypoint exploredFrom;
+
   public bool isExplored = false;
 
   // a pair of ints (x,y)
