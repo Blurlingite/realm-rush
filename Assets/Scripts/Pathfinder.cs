@@ -7,6 +7,13 @@ public class Pathfinder : MonoBehaviour
 {
 
 
+  void Start()
+  {
+    float f = RoundFloat(24.5f);
+
+    print(f);
+  }
+
   // key = position of block, value = block
   Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
 
@@ -37,6 +44,7 @@ public class Pathfinder : MonoBehaviour
     // first add the destination
     path.Add(endWaypoint);
 
+
     // now set where the destination was explored from
     Waypoint previous = endWaypoint.exploredFrom;
 
@@ -50,6 +58,8 @@ public class Pathfinder : MonoBehaviour
       // when the while loop executes again, previous will be re-assigned the waypoint before until we get to the startWaypoint
       previous = previous.exploredFrom;
     }
+
+
     // Add the waypoint you started from
     path.Add(startWaypoint);
 
@@ -114,7 +124,6 @@ public class Pathfinder : MonoBehaviour
     // look up neighbor by coordinates from dictionary
     Waypoint neighbor = grid[neighborCoordinates];
 
-
     // if the neighboring waypoint has been explored or this neighbor was already explored (prevent duplicate queuing of waypoints), do nothing (do not add it to the queue)
     // else, add it to the queue so we can search from there at some point
     if (neighbor.isExplored || queue.Contains(neighbor))
@@ -128,8 +137,33 @@ public class Pathfinder : MonoBehaviour
       queue.Enqueue(neighbor);
 
       // when we add the neighbor waypoint to the queue that neighbor waypoint needs to know where it was found from. It was found from the waypoint we were searching from at the time, which is stored in searchCenter in this line: searchCenter = queue.Dequeue();
+
       neighbor.exploredFrom = searchCenter;
 
+      // todo make a method that rounds the x and z positions when w is the endpoint, b/c the z coordinate is off and that's why the if statement would not work
+      // I was getting a null error because the endwaypoint was not getting it's exploredFrom set. This is b/c I added the endWaypoint prefab into the path and not the actual end waypoint that gets found during runtme
+      Waypoint w = grid[neighborCoordinates];
+
+      float wx = RoundFloat(w.transform.position.x);
+      float wz = RoundFloat(w.transform.position.z);
+
+
+      if (wx == endWaypoint.transform.position.x && wz == endWaypoint.transform.position.z)
+      {
+        endWaypoint.exploredFrom = searchCenter;
+      }
+
+
+
+      // if (w.transform.position.x == 40f)
+      // {
+      //   w.transform.position = new Vector3(40f, 0f, 30f);
+      // }
+
+      // if (w.transform.position == endWaypoint.transform.position)
+      // {
+      //   endWaypoint.exploredFrom = searchCenter;
+      // }
     }
 
   }
@@ -171,6 +205,18 @@ public class Pathfinder : MonoBehaviour
     CreatePath();
 
     return path;
+  }
+
+
+  float RoundFloat(float roundThis)
+  {
+
+    // 2.6
+    roundThis = roundThis / 10;
+    // 3 -> 30
+    roundThis = Mathf.Round(roundThis) * 10;
+
+    return roundThis;
   }
 
 
