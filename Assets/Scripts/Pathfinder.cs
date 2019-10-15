@@ -5,15 +5,6 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
-
-
-  void Start()
-  {
-    float f = RoundFloat(24.5f);
-
-    print(f);
-  }
-
   // key = position of block, value = block
   Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
 
@@ -22,7 +13,6 @@ public class Pathfinder : MonoBehaviour
   // the shortest path we found (will be descending order until we reverse it so our Enemy can travel on this path)
   [SerializeField]
   List<Waypoint> path = new List<Waypoint>();
-
 
   bool isRunning = true;
 
@@ -44,7 +34,6 @@ public class Pathfinder : MonoBehaviour
     // first add the destination
     path.Add(endWaypoint);
 
-
     // now set where the destination was explored from
     Waypoint previous = endWaypoint.exploredFrom;
 
@@ -58,7 +47,6 @@ public class Pathfinder : MonoBehaviour
       // when the while loop executes again, previous will be re-assigned the waypoint before until we get to the startWaypoint
       previous = previous.exploredFrom;
     }
-
 
     // Add the waypoint you started from
     path.Add(startWaypoint);
@@ -85,7 +73,6 @@ public class Pathfinder : MonoBehaviour
 
       // marked that you've explored this waypoint's neighbors already
       searchCenter.isExplored = true;
-
     }
 
   }
@@ -101,7 +88,6 @@ public class Pathfinder : MonoBehaviour
 
   private void ExploreNeighbors()
   {
-
     if (!isRunning) { return; }
 
     foreach (Vector2Int direction in directions)
@@ -112,9 +98,7 @@ public class Pathfinder : MonoBehaviour
       if (grid.ContainsKey(neighborCoordinates))
       {
         QueueNewNeighbors(neighborCoordinates);
-
       }
-
 
     }
   }
@@ -153,17 +137,6 @@ public class Pathfinder : MonoBehaviour
         endWaypoint.exploredFrom = searchCenter;
       }
 
-
-
-      // if (w.transform.position.x == 40f)
-      // {
-      //   w.transform.position = new Vector3(40f, 0f, 30f);
-      // }
-
-      // if (w.transform.position == endWaypoint.transform.position)
-      // {
-      //   endWaypoint.exploredFrom = searchCenter;
-      // }
     }
 
   }
@@ -172,7 +145,6 @@ public class Pathfinder : MonoBehaviour
   {
     startWaypoint.SetTopColor(Color.green);
     endWaypoint.SetTopColor(Color.red);
-
   }
 
   void LoadBlocks()
@@ -183,7 +155,6 @@ public class Pathfinder : MonoBehaviour
     {
       var gridPos = waypoint.GetGridPos();
 
-
       if (grid.ContainsKey(gridPos))
       {
         Debug.LogWarning("Skipping overlapping block " + waypoint);
@@ -191,7 +162,6 @@ public class Pathfinder : MonoBehaviour
       else
       {
         grid.Add(gridPos, waypoint);
-
       }
     }
 
@@ -199,18 +169,25 @@ public class Pathfinder : MonoBehaviour
 
   public List<Waypoint> GetPath()
   {
-    LoadBlocks();
-    ColorStartAndEnd();
-    BreadthFirstSearch();
-    CreatePath();
+    // if path was calculated, do not calulate it again when multiple enemies spawn it will cause an error
+    if (path.Count == 0)
+    {
+      CalculatePath();
+    }
 
     return path;
   }
 
+  private void CalculatePath()
+  {
+    LoadBlocks();
+    ColorStartAndEnd();
+    BreadthFirstSearch();
+    CreatePath();
+  }
 
   float RoundFloat(float roundThis)
   {
-
     // 2.6
     roundThis = roundThis / 10;
     // 3 -> 30
