@@ -9,6 +9,8 @@ public class Waypoint : MonoBehaviour
 
   public bool isExplored = false;
 
+  public bool isPlaceable = true;
+
   // a pair of ints (x,y)
   Vector2Int gridPos;
 
@@ -47,13 +49,28 @@ public class Waypoint : MonoBehaviour
   }
 
 
-
-  public void SetTopColor(Color color)
+  void OnMouseOver()
   {
-    MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
-
-    topMeshRenderer.material.color = color;
+    // if left click
+    if (Input.GetMouseButtonDown(0))
+    {
+      if (isPlaceable)
+      {
+        print(this.gameObject.name);
+      }
+      else
+      {
+        print("Can't place here");
+      }
+    }
   }
+
+  // public void SetTopColor(Color color)
+  // {
+  //   MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
+
+  //   topMeshRenderer.material.color = color;
+  // }
 
 
 

@@ -31,8 +31,7 @@ public class Pathfinder : MonoBehaviour
 
   private void CreatePath()
   {
-    // first add the destination
-    path.Add(endWaypoint);
+    SetAsPath(endWaypoint);
 
     // now set where the destination was explored from
     Waypoint previous = endWaypoint.exploredFrom;
@@ -40,7 +39,8 @@ public class Pathfinder : MonoBehaviour
     while (previous != startWaypoint)
     {
       // add intermediate waypoints
-      path.Add(previous);
+
+      SetAsPath(previous);
 
       // set previous to the waypoint before the original previous
       // So before, previous was the waypoint stored on the endWaypoint. Now, it is the waypoint stored on the waypoint that was stored on the endWaypoint.
@@ -49,10 +49,18 @@ public class Pathfinder : MonoBehaviour
     }
 
     // Add the waypoint you started from
-    path.Add(startWaypoint);
+    SetAsPath(startWaypoint);
 
     // reverse the list to get the correct path the enemy needs to travel
     path.Reverse();
+  }
+
+  private void SetAsPath(Waypoint waypoint)
+  {
+    // first add the destination
+    path.Add(waypoint);
+
+    waypoint.isPlaceable = false;
   }
 
   private void BreadthFirstSearch()
@@ -141,11 +149,11 @@ public class Pathfinder : MonoBehaviour
 
   }
 
-  private void ColorStartAndEnd()
-  {
-    startWaypoint.SetTopColor(Color.green);
-    endWaypoint.SetTopColor(Color.red);
-  }
+  // private void ColorStartAndEnd()
+  // {
+  //   startWaypoint.SetTopColor(Color.green);
+  //   endWaypoint.SetTopColor(Color.red);
+  // }
 
   void LoadBlocks()
   {
@@ -181,7 +189,7 @@ public class Pathfinder : MonoBehaviour
   private void CalculatePath()
   {
     LoadBlocks();
-    ColorStartAndEnd();
+    // ColorStartAndEnd();
     BreadthFirstSearch();
     CreatePath();
   }
