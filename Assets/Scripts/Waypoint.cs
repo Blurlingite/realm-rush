@@ -11,6 +11,9 @@ public class Waypoint : MonoBehaviour
 
   public bool isPlaceable = true;
 
+
+  [SerializeField] Tower towerPrefab;
+
   // a pair of ints (x,y)
   Vector2Int gridPos;
 
@@ -56,7 +59,10 @@ public class Waypoint : MonoBehaviour
     {
       if (isPlaceable)
       {
-        print(this.gameObject.name);
+        Instantiate(towerPrefab, transform.position, Quaternion.identity);
+
+        // don't let player place multiple towers on the same waypoint
+        isPlaceable = false;
       }
       else
       {
