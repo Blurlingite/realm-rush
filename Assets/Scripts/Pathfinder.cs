@@ -39,7 +39,6 @@ public class Pathfinder : MonoBehaviour
     while (previous != startWaypoint)
     {
       // add intermediate waypoints
-
       SetAsPath(previous);
 
       // set previous to the waypoint before the original previous
@@ -165,7 +164,7 @@ public class Pathfinder : MonoBehaviour
 
       if (grid.ContainsKey(gridPos))
       {
-        Debug.LogWarning("Skipping overlapping block " + waypoint);
+        // Debug.LogWarning("Skipping overlapping block " + waypoint);
       }
       else
       {
