@@ -12,16 +12,12 @@ public class EnemyDamage : MonoBehaviour
 
   void OnParticleCollision(GameObject other)
   {
-
-    print("Hello");
-
     ProcessHit();
 
     if (hitPoints <= 0)
     {
       KillEnemy();
     }
-
   }
 
   void ProcessHit()
