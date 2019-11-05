@@ -61,6 +61,8 @@
      <Compile Include="Assets\Scripts\Tower.cs" />
      <Compile Include="Assets\Scripts\TowerFactory.cs" />
      <Compile Include="Assets\Scripts\Waypoint.cs" />
+     <Compile Include="Assets\WorldSkies\Demo\Scripts\LookCamera.cs" />
+     <Compile Include="Assets\WorldSkies\Demo\Scripts\SkyboxChanger.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/vishnukdawah/Documents/github/Unity Projects/tower-defense/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

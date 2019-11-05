@@ -32,6 +32,11 @@ public class EnemyDamage : MonoBehaviour
 
     vfx.Play();
 
+    float destroyDelay = vfx.main.duration;
+
+    // destroy enemy death particles
+    Destroy(vfx.gameObject, destroyDelay);
+
     Destroy(this.gameObject);
   }
 
