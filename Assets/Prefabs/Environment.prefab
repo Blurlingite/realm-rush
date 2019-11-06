@@ -45,22 +45,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 23.00001, y: 63, z: -12.38}
   m_Center: {x: -9.42, y: 31.5, z: 2.76}
---- !u!114 &7300431715491586006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8781060150199407596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5766c166ce8148279adb7bef63638cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
-  healthDecrease: 1
-  healthText: {fileID: 0}
-  playerDamageSFX: {fileID: 8300000, guid: a3bedbc0049d842688c5e959d06b6254, type: 3}
 --- !u!82 &1481481539
 AudioSource:
   m_ObjectHideFlags: 0
@@ -157,6 +141,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7300431715491586006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8781060150199407596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5766c166ce8148279adb7bef63638cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  healthDecrease: 1
+  healthText: {fileID: 0}
+  playerDamageSFX: {fileID: 8300000, guid: a3bedbc0049d842688c5e959d06b6254, type: 3}
 --- !u!1001 &3330608624450936292
 PrefabInstance:
   m_ObjectHideFlags: 0
