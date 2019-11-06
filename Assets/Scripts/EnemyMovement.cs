@@ -6,6 +6,9 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
 
+  [SerializeField] float movementPeriod = 0.5f;
+  [SerializeField] ParticleSystem goalParticle;
+
   // Start is called before the first frame update
   void Start()
   {
@@ -24,19 +27,31 @@ public class EnemyMovement : MonoBehaviour
 
   IEnumerator FollowPath(List<Waypoint> pathToFollow)
   {
-    // print("Starting patrol...");
 
     foreach (Waypoint waypoint in pathToFollow)
     {
       // Enemy position becomes the current waypoint's position so the enemy moves on the path
       transform.position = waypoint.transform.position;
 
-      yield return new WaitForSeconds(2f);
+      yield return new WaitForSeconds(movementPeriod);
     }
-    // print("Ending patrol");
+    SelfDestruct();
   }
 
 
+  private void SelfDestruct()
+  {
+    var vfx = Instantiate(goalParticle, transform.position, Quaternion.identity);
+
+    vfx.Play();
+
+    float destroyDelay = vfx.main.duration;
+
+    // destroy particles
+    Destroy(vfx.gameObject, destroyDelay);
+
+    Destroy(this.gameObject);
+  }
 
 
 
