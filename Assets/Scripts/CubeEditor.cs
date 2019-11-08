@@ -8,8 +8,6 @@ using UnityEngine;
 [RequireComponent(typeof(Waypoint))]
 public class CubeEditor : MonoBehaviour
 {
-
-
   Waypoint waypoint;
 
   private void Awake()
@@ -21,12 +19,17 @@ public class CubeEditor : MonoBehaviour
   void Update()
   {
     SnapToGrid();
-
-    UpdateLabel();
-
+    // UpdateLabel();
   }
 
+  void SnapToGrid()
+  {
+    int gridSize = waypoint.GetGridSize();
 
+    // The reason we use the .y in the z position is b/c the Vector2Int we got this GetGridPos() from uses (x,y)
+    // x is the x and y is the z coordinate
+    transform.position = new Vector3(waypoint.GetGridPos().x * gridSize, 0f, waypoint.GetGridPos().y * gridSize);
+  }
 
   void UpdateLabel()
   {
@@ -34,29 +37,11 @@ public class CubeEditor : MonoBehaviour
 
     string labelText =
 
-    waypoint.GetGridPos().x
-    + ","
-    + waypoint.GetGridPos().y;
+    waypoint.GetGridPos().x + "," + waypoint.GetGridPos().y;
 
     textMesh.text = labelText;
 
     gameObject.name = labelText;
   }
-
-  void SnapToGrid()
-  {
-    int gridSize = waypoint.GetGridSize();
-
-
-    // The reason we use the .y in the z position is b/c the Vector2Int we got this GetGridPos() from uses (x,y)
-    // x is the x and y is the z coordinate
-    transform.position = new Vector3(waypoint.GetGridPos().x * gridSize, 0f, waypoint.GetGridPos().y * gridSize);
-
-  }
-
-
-
-
-
 
 }

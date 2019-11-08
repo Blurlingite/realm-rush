@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Tower.cs" />
      <Compile Include="Assets\Scripts\TowerFactory.cs" />
+     <Compile Include="Assets\Scripts\TurnOffAllLabels.cs" />
      <Compile Include="Assets\Scripts\Waypoint.cs" />
      <Compile Include="Assets\WorldSkies\Demo\Scripts\LookCamera.cs" />
      <Compile Include="Assets\WorldSkies\Demo\Scripts\SkyboxChanger.cs" />

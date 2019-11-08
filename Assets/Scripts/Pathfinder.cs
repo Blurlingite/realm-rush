@@ -29,6 +29,8 @@ public class Pathfinder : MonoBehaviour
   [SerializeField] Waypoint startWaypoint, endWaypoint;
 
 
+
+
   private void CreatePath()
   {
     SetAsPath(endWaypoint);
