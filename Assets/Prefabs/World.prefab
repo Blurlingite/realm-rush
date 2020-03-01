@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 2678030110303681903}
   - component: {fileID: 2062591349}
   - component: {fileID: 320008480}
+  - component: {fileID: 1104651452}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -290,6 +291,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec13be3fe76e4c009a33f6b3c1e0765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1104651452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8956598662294089407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fe2cda5a49d4046b26232640f905cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverCanvas: {fileID: 0}
 --- !u!1001 &281842275526940194
 PrefabInstance:
   m_ObjectHideFlags: 0

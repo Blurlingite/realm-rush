@@ -16,7 +16,6 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-
         healthText.text = health.ToString();
     }
 

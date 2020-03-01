@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DestroyBase : MonoBehaviour
 {
 
     [SerializeField] PlayerHealth friendlyBase;
     [SerializeField] GameObject explosionPrefab;
+    [SerializeField]
+    Canvas gameOverCanvas;
     bool stopLooping = false;
 
     void Update()
@@ -40,6 +43,8 @@ public class DestroyBase : MonoBehaviour
         GameObject.Find("AA Theme Reversed").GetComponent<AudioSource>().Stop();
 
         Time.timeScale = 0.0f;
+
+        gameOverCanvas.gameObject.SetActive(true);
 
         this.enabled = false;
     }

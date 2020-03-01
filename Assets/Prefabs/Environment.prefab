@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8466018697729324976}
   - component: {fileID: 1347091363}
   - component: {fileID: 1347091364}
+  - component: {fileID: 693754887}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   friendlyBase: {fileID: 7300431715491586006}
   explosionPrefab: {fileID: 333125622902038852, guid: 5806cc809fcb642208aa3cd554844e0e,
     type: 3}
+  gameOverCanvas: {fileID: 0}
 --- !u!82 &1347091364
 AudioSource:
   m_ObjectHideFlags: 0
@@ -145,6 +147,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &693754887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4768586640580804549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7563703207d14b37bbd53a00fdb9f94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverCanvas: {fileID: 0}
 --- !u!65 &7300431715491586007
 BoxCollider:
   m_ObjectHideFlags: 0
