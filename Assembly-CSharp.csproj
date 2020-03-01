@@ -44,7 +44,12 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>     <Compile Include="Assets\Scripts\CubeEditor.cs" />
+  <ItemGroup>     <Compile Include="Assets\Fx Explosion Pack\Script\DestroyEffect.cs" />
+     <Compile Include="Assets\Fx Explosion Pack\Script\csDemoScenceControl.cs" />
+     <Compile Include="Assets\Fx Explosion Pack\Script\csLightControl.cs" />
+     <Compile Include="Assets\Fx Explosion Pack\Script\csMouseOrbit.cs" />
+     <Compile Include="Assets\Scripts\CubeEditor.cs" />
+     <Compile Include="Assets\Scripts\DestroyBase.cs" />
      <Compile Include="Assets\Scripts\EnemyDamage.cs" />
      <Compile Include="Assets\Scripts\EnemyMovement.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
